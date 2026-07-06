@@ -118,24 +118,24 @@ Scanner QR Code & Code-barres
 
 function qrTrouve(decodedText){
 
-const qrRef = ref(db, "scanner");
+fetch("TON_URL_APPS_SCRIPT", {
 
-set(qrRef, {
+method: "POST",
 
-id: Date.now(),
+headers: {
+"Content-Type": "application/json"
+},
 
-contenu: decodedText,
-
-date: new Date().toISOString()
-
+body: JSON.stringify({
+idProduit: decodedText
 })
 
-.then(function(){
+})
+.then(() => {
 
-alert("QR envoyé à Firebase !");
+alert("✅ Produit envoyé à AM'S DIGITAL");
 
 })
-
 .catch(function(err){
 
 alert(err);
@@ -143,7 +143,7 @@ alert(err);
 });
 
 }
-
+  
 const html5QrCode = new Html5Qrcode("reader");
 
 html5QrCode.start(
