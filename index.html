@@ -118,7 +118,29 @@ Scanner QR Code & Code-barres
 
 function qrTrouve(decodedText){
 
-alert("QR détecté :\n\n" + decodedText);
+const qrRef = ref(db, "scanner");
+
+set(qrRef, {
+
+id: Date.now(),
+
+contenu: decodedText,
+
+date: new Date().toISOString()
+
+})
+
+.then(function(){
+
+alert("QR envoyé à Firebase !");
+
+})
+
+.catch(function(err){
+
+alert(err);
+
+});
 
 }
 
