@@ -110,12 +110,54 @@ Scanner QR Code & Code-barres
 </p>
 
 <div id="reader">
-
-Scanner bientôt disponible...
-
+<video id="camera"
+autoplay
+playsinline
+style="width:100%;border-radius:20px;">
+</video>
 </div>
 
 </div>
+
+<script>
+
+async function ouvrirCamera(){
+
+try{
+
+const flux =
+await navigator.mediaDevices.getUserMedia({
+
+video:{
+facingMode:"environment"
+}
+
+});
+
+document.getElementById("camera").srcObject =
+flux;
+
+}catch(e){
+
+alert(
+
+"Erreur : " +
+
+e.name +
+
+"\n" +
+
+e.message
+
+);
+
+}
+
+}
+
+ouvrirCamera();
+
+</script>
 
 </body>
 
