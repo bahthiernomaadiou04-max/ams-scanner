@@ -111,56 +111,43 @@ Scanner QR Code & Code-barres
 
 </p>
 
-<div id="reader">
-<video id="camera"
-autoplay
-playsinline
-style="width:100%;border-radius:20px;">
-</video>
-</div>
-
+<div id="reader"></div>
 </div>
 
 <script>
 
-async function ouvrirCamera(){
+function qrTrouve(decodedText){
 
-try{
+alert("QR détecté :\n\n" + decodedText);
 
-const flux =
-await navigator.mediaDevices.getUserMedia({
-
-video:{
-facingMode:"environment"
 }
+
+const html5QrCode = new Html5Qrcode("reader");
+
+html5QrCode.start(
+
+{ facingMode: "environment" },
+
+{
+
+fps:10,
+
+qrbox:250
+
+},
+
+qrTrouve,
+
+function(){}
+
+).catch(function(err){
+
+alert("Erreur : " + err);
 
 });
 
-document.getElementById("camera").srcObject =
-flux;
-
-}catch(e){
-
-alert(
-
-"Erreur : " +
-
-e.name +
-
-"\n" +
-
-e.message
-
-);
-
-}
-
-}
-
-ouvrirCamera();
-
 </script>
-
+  
 </body>
 
 </html>
