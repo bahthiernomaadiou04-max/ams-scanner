@@ -118,32 +118,26 @@ Scanner QR Code & Code-barres
 
 function qrTrouve(decodedText){
 
-fetch("TON_URL_APPS_SCRIPT", {
+db.ref("scanner").set({
 
-method: "POST",
+contenu: decodedText,
 
-headers: {
-"Content-Type": "application/json"
-},
-
-body: JSON.stringify({
-idProduit: decodedText
-})
+date: new Date().toISOString()
 
 })
-.then(() => {
+.then(function(){
 
-alert("✅ Produit envoyé à AM'S DIGITAL");
+alert("✅ Produit envoyé");
 
 })
 .catch(function(err){
 
-alert(err);
+alert("Erreur : " + err);
 
 });
 
 }
-  
+
 const html5QrCode = new Html5Qrcode("reader");
 
 html5QrCode.start(
