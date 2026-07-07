@@ -137,7 +137,13 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
+let scanEnCours = false;
+
 function qrTrouve(decodedText){
+
+if(scanEnCours) return;
+
+scanEnCours = true;
 
 set(
 
@@ -155,18 +161,28 @@ date:new Date().toISOString()
 
 .then(function(){
 
-alert("✅ Produit envoyé");
+navigator.vibrate?.(120);
+
+// Plus d'alert()
+// Le scanner est prêt à rescanner après 1 seconde
+
+setTimeout(function(){
+
+scanEnCours = false;
+
+},1000);
 
 })
 
 .catch(function(err){
+
+scanEnCours = false;
 
 alert(err);
 
 });
 
 }
-
 const html5QrCode = new Html5Qrcode("reader");
 
 html5QrCode.start(
